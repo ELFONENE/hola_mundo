@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="HOLA MUNDO COMPLETA: versión multipágina con HTML, CSS y JavaScript separados.">
+  <title>Hola Mundo · COMPLETA · Inicio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- CSS propio de COMPLETA + módulo legal/cookies compartido. -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../archivos comunes hola_mundo/cookies y privacidad/cookies.css">
+</head>
+<body
+  data-page="inicio"
+  data-hm-theme="completa"
+  data-legal-url="../archivos comunes hola_mundo/cookies y privacidad/cookies_privacidad_hola_mundo.html">
+
+<!-- ===== CABECERA COMPARTIDA ENTRE LAS PÁGINAS DE COMPLETA ===== -->
+<header class="topbar">
+  <a class="brand" href="inicio.html">Hola Mundo · COMPLETA</a>
+  <nav class="main-nav" aria-label="Menú principal">
+    <a href="inicio.html" data-page="inicio">Inicio</a>
+    <a href="blog.html" data-page="blog">Blog</a>
+    <a href="contacto.html" data-page="contacto">Contacto</a>
+  </nav>
+  <div class="datetime" aria-label="Fecha y hora local">
+    <div id="fecha" class="date">--/--/----</div>
+    <div id="reloj" class="clock">00:00:00</div>
+  </div>
+</header>
+
+<!-- ===== CONTENIDO ESPECÍFICO DE ESTA PÁGINA ===== -->
+<main class="page">
+  <section class="hero">
+    <h1>Hola Mundo</h1>
+    <p>Versión COMPLETA · páginas HTML independientes</p>
+    <div class="structure-grid" aria-label="Comparación de estructuras">
+      <figure class="structure-figure">
+        <img src="../archivos comunes hola_mundo/imagenes/estructura_web_generica.png" alt="Estructura genérica de un proyecto web">
+        <figcaption>Plantilla genérica de estructura web.</figcaption>
+      </figure>
+      <figure class="structure-figure">
+        <img src="../archivos comunes hola_mundo/imagenes/estructura_hola_mundo.png" alt="Estructura del proyecto HOLA MUNDO">
+        <figcaption>Estructura aplicada al proyecto HOLA MUNDO.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<!-- ===== PIE COMPARTIDO; el módulo de cookies enlaza los botones por data-* ===== -->
+<footer class="site-footer">
+  <div class="footer-author">Autor: XNENEX · COMPLETA</div>
+  <nav class="footer-links" aria-label="Información legal">
+    <button type="button" data-hm-open-legal>Información legal, privacidad y cookies</button>
+    <button type="button" data-hm-open-cookies>Configurar cookies</button>
+  </nav>
+  <div class="footer-copy">&copy; XNENEX 2026</div>
+</footer>
+
+<!-- Comportamiento propio de COMPLETA y, después, módulo legal común. -->
+<script src="script.js"></script>
+<script src="../archivos comunes hola_mundo/cookies y privacidad/cookies.js"></script>
+</body>
+</html>

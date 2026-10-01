@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hola Mundo :: Editor de código HCJ</title>
+  <link rel="icon" href="../../favicon.ico">
+  <style>
+    :root{--bg:#050805;--panel:#091009;--line:#174a28;--green:#00ff66;--green2:#9dffb9;--muted:#76a984;--screen:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--green);font-family:Consolas,"Courier New",monospace;min-height:100vh}
+    a{color:inherit}.shell{min-height:100vh;display:flex;flex-direction:column}.top{padding:16px 20px;border-bottom:1px solid var(--line);background:#000}
+    .title{font-weight:700;letter-spacing:.08em;margin-bottom:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn,.tab{appearance:none;border:1px solid var(--line);background:#071007;color:var(--green);padding:9px 13px;font:inherit;text-decoration:none;cursor:pointer}.btn:hover,.tab:hover,.tab.active{background:var(--green);color:#001a08}
+    .status{margin-left:auto;color:var(--muted);font-size:.85rem}.workspace{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:650px}
+    .editor-side,.preview-side{min-width:0;display:flex;flex-direction:column}.editor-side{border-right:1px solid var(--line);background:var(--panel)}
+    .pane-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);background:#030603}
+    .pane-label{font-size:.82rem;color:var(--green2);letter-spacing:.08em}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{padding:6px 10px}
+    .editors{position:relative;flex:1;min-height:560px}.code{position:absolute;inset:0;width:100%;height:100%;resize:none;border:0;outline:0;padding:18px;background:#050805;color:#d8ffe2;font:15px/1.55 Consolas,"Courier New",monospace;tab-size:2;display:none}.code.active{display:block}
+    .preview-wrap{flex:1;background:#fff}.preview{width:100%;height:100%;min-height:560px;border:0;background:var(--screen)}
+    .hint{padding:8px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;background:#030603}
+    @media(max-width:850px){.workspace{grid-template-columns:1fr}.editor-side{border-right:0;border-bottom:1px solid var(--line)}.editors,.preview{min-height:420px}.status{width:100%;margin-left:0}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="title">HOLA MUNDO :: EDITOR DE CÓDIGO · HTML + CSS + JAVASCRIPT</div>
+    <div class="toolbar">
+      <a class="btn" href="../../index.html">← ARRANQUE</a>
+      <a class="btn" href="../../simple/index.html">WEB SIMPLE</a>
+      <a class="btn" href="../../completa/inicio.html">WEB COMPLETA</a>
+      <a class="btn" href="visor.html?modo=visor">VISOR</a>
+      <button class="btn" id="run" type="button">▶ EJECUTAR</button>
+      <button class="btn" id="reset" type="button">↺ RESTAURAR EJEMPLO</button>
+      <button class="btn" id="clear" type="button">× LIMPIAR</button>
+      <span class="status" id="status" aria-live="polite">LISTO</span>
+    </div>
+  </header>
+
+  <!-- El editor y el monitor están separados en dos paneles. -->
+  <main class="workspace">
+    <section class="editor-side" aria-label="Editor de código">
+      <div class="pane-head">
+        <span class="pane-label">&gt; CÓDIGO</span>
+        <div class="tabs" role="tablist" aria-label="Lenguaje">
+          <button class="tab active" type="button" data-lang="html">HTML</button>
+          <button class="tab" type="button" data-lang="css">CSS</button>
+          <button class="tab" type="button" data-lang="js">JAVASCRIPT</button>
+        </div>
+      </div>
+      <div class="editors">
+        <textarea id="html" class="code active" spellcheck="false" aria-label="Código HTML"></textarea>
+        <textarea id="css" class="code" spellcheck="false" aria-label="Código CSS"></textarea>
+        <textarea id="js" class="code" spellcheck="false" aria-label="Código JavaScript"></textarea>
+      </div>
+      <div class="hint">CTRL + ENTER = ejecutar · El editor no sobrescribe archivos del proyecto.</div>
+    </section>
+
+    <section class="preview-side" aria-label="Monitor de vista previa">
+      <div class="pane-head"><span class="pane-label">&gt; MONITOR / VISTA PREVIA</span><span class="pane-label" id="time"></span></div>
+      <div class="preview-wrap"><iframe id="preview" class="preview" title="Resultado del código" sandbox="allow-scripts"></iframe></div>
+      <div class="hint">El resultado se ejecuta aislado dentro del monitor.</div>
+    </section>
+  </main>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const editors = {
+    html: document.getElementById("html"),
+    css: document.getElementById("css"),
+    js: document.getElementById("js")
+  };
+  const preview = document.getElementById("preview");
+  const status = document.getElementById("status");
+  const time = document.getElementById("time");
+
+  // Ejemplo inicial: cada lenguaje se mantiene en su propio editor.
+  const sample = {
+    html: `<main class="tarjeta">
+  <h1>Hola Mundo</h1>
+  <p>Estoy probando mi propio código.</p>
+  <button id="boton">Púlsame</button>
+</main>`,
+    css: `body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+}
+.tarjeta {
+  padding: 32px;
+  text-align: center;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+}
+button { padding: 10px 16px; cursor: pointer; }`,
+    js: `const boton = document.querySelector("#boton");
+boton.addEventListener("click", () => {
+  boton.textContent = "¡JavaScript funciona!";
+});`
+  };
+
+  function loadExample() {
+    Object.entries(sample).forEach(([lang,value]) => editors[lang].value = value);
+    run();
+  }
+
+  // Construye un documento temporal. El iframe sandbox evita que el ejemplo
+  // pueda modificar los archivos reales de HOLA MUNDO.
+  function run() {
+    const documentCode = `<!doctype html>
+<html><head><meta charset="utf-8"><style>${editors.css.value}</style></head>
+<body>${editors.html.value}<script>${editors.js.value}<\/script></body></html>`;
+    preview.srcdoc = documentCode;
+    status.textContent = "EJECUTADO";
+  }
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab));
+      Object.entries(editors).forEach(([lang,editor]) => editor.classList.toggle("active", lang === tab.dataset.lang));
+    });
+  });
+
+  document.getElementById("run").addEventListener("click", run);
+  document.getElementById("reset").addEventListener("click", loadExample);
+  document.getElementById("clear").addEventListener("click", () => {
+    Object.values(editors).forEach(editor => editor.value = "");
+    run();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.ctrlKey && event.key === "Enter") run();
+  });
+
+  setInterval(() => {
+    time.textContent = new Date().toLocaleTimeString("es-ES");
+  }, 1000);
+
+  loadExample();
+})();
+</script>
+</body>
+</html>

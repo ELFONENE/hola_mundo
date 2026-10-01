@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="HOLA MUNDO COMPLETA: versión multipágina con HTML, CSS y JavaScript separados.">
+  <title>Hola Mundo · COMPLETA · Blog</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- CSS propio de COMPLETA + módulo legal/cookies compartido. -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../archivos comunes hola_mundo/cookies y privacidad/cookies.css">
+</head>
+<body
+  data-page="blog"
+  data-hm-theme="completa"
+  data-legal-url="../archivos comunes hola_mundo/cookies y privacidad/cookies_privacidad_hola_mundo.html">
+
+<!-- ===== CABECERA COMPARTIDA ENTRE LAS PÁGINAS DE COMPLETA ===== -->
+<header class="topbar">
+  <a class="brand" href="inicio.html">Hola Mundo · COMPLETA</a>
+  <nav class="main-nav" aria-label="Menú principal">
+    <a href="inicio.html" data-page="inicio">Inicio</a>
+    <a href="blog.html" data-page="blog">Blog</a>
+    <a href="contacto.html" data-page="contacto">Contacto</a>
+  </nav>
+  <div class="datetime" aria-label="Fecha y hora local">
+    <div id="fecha" class="date">--/--/----</div>
+    <div id="reloj" class="clock">00:00:00</div>
+  </div>
+</header>
+
+<!-- ===== CONTENIDO ESPECÍFICO DE ESTA PÁGINA ===== -->
+<main class="page">
+
+<article class="tutorial">
+  <h1>Cómo está construida esta web</h1>
+  <p class="intro">Esta misma web puede construirse de dos formas distintas y mostrar prácticamente el mismo resultado en pantalla. Aquí puedes comparar las dos estructuras.</p>
+
+  <div class="tutorial-block">
+    <h2>1. Dos formas de construir la misma web</h2>
+    <div class="resource-grid architecture-grid">
+      <div class="resource-card">
+        <h3>Modo simple · un solo archivo</h3>
+        <pre><code>simple/
+└── index.html
+    ├── HTML
+    ├── &lt;style&gt; CSS &lt;/style&gt;
+    └── &lt;script&gt; JavaScript &lt;/script&gt;</code></pre>
+        <p>La versión SIMPLE reúne su estructura, estilos y programación en un único HTML.</p>
+      </div>
+      <div class="resource-card">
+        <h3>Modo completo · páginas y archivos separados</h3>
+        <pre><code>completa/
+├── inicio.html
+├── blog.html
+├── contacto.html
+├── style.css
+└── script.js</code></pre>
+        <p>La versión COMPLETA utiliza páginas HTML independientes y comparte CSS y JavaScript externos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tutorial-block">
+    <h2>2. Qué hace cada lenguaje</h2>
+    <p><strong>HTML</strong> crea y organiza el contenido de la página: títulos, textos, imágenes, enlaces, formularios y demás elementos.</p>
+    <p><strong>CSS</strong> controla la presentación visual: colores, tamaños, tipografías, espacios, posiciones y adaptación a distintos tamaños de pantalla.</p>
+    <p><strong>JavaScript</strong> añade comportamiento e interacción: responde a acciones del usuario y ejecuta funciones de la página.</p>
+    <p><strong>Para seguir aprendiendo:</strong> al final del tutorial encontrarás documentación y cursos externos.</p>
+  </div>
+
+  <div class="tutorial-block">
+    <h2>3. Generadores de estructura · crea tu propio proyecto</h2>
+    <p>Estos dos scripts crean una base de proyecto y permiten estudiar cómo nace una estructura web desde cero.</p>
+    <div class="resource-grid architecture-grid">
+      <div class="resource-card">
+        <h3>Web HTML · CSS · JavaScript</h3>
+        <p><code>crear_pagina_web_HTML.sh</code></p>
+        <p>Crea la estructura inicial de una web estática con sus carpetas y archivos básicos.</p>
+        <a href="../archivos comunes hola_mundo/scripts/crear_pagina_web_HTML.sh" download>Descargar generador HTML (.sh) ↓</a>
+      </div>
+      <div class="resource-card">
+        <h3>Web PHP</h3>
+        <p><code>crear_pagina_web_PHP.sh</code></p>
+        <p>Crea una estructura orientada a una web dinámica con PHP y archivos auxiliares.</p>
+        <a href="../archivos comunes hola_mundo/scripts/crear_pagina_web_PHP.sh" download>Descargar generador PHP (.sh) ↓</a>
+      </div>
+    </div>
+    <h3>Cómo ejecutarlos en Linux</h3>
+    <pre><code>chmod +x crear_pagina_web_HTML.sh
+./crear_pagina_web_HTML.sh
+
+# Para el generador PHP:
+chmod +x crear_pagina_web_PHP.sh
+./crear_pagina_web_PHP.sh</code></pre>
+    <p class="code-intro">También puedes ejecutarlos con <code>bash nombre_del_archivo.sh</code>.</p>
+  </div>
+
+  <div class="tutorial-block source-document">
+    <h2>4. Consulta el código real de esta web</h2>
+    <p class="code-intro">El visor abre los archivos reales del proyecto; no mantiene una segunda copia del código.</p>
+    <div class="resource-grid architecture-grid">
+      <div class="resource-card">
+        <h3>Modo simple</h3>
+        <p>Un único archivo contiene HTML, CSS y JavaScript.</p>
+        <a href="../archivos comunes hola_mundo/utilidades/visor.html?modo=simple" target="_blank" rel="noopener">Ver código SIMPLE completo →</a>
+      </div>
+      <div class="resource-card">
+        <h3>Modo completo</h3>
+        <p>Páginas HTML independientes con CSS y JavaScript externos.</p>
+        <a href="../archivos comunes hola_mundo/utilidades/visor.html?modo=completa" target="_blank" rel="noopener">Explorar código COMPLETO →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tutorial-block">
+    <h2>5. Editor de código</h2>
+    <p>Escribe y prueba HTML, CSS y JavaScript directamente en el navegador. Lo que ejecutes es temporal y no modifica los archivos del proyecto.</p>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>Editor HTML · CSS · JavaScript</h3>
+        <p>Editor a la izquierda y monitor de vista previa a la derecha.</p>
+        <a href="../archivos comunes hola_mundo/utilidades/editor_hcj.html">Abrir el editor de código</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tutorial-block">
+    <h2>6. Consultas y documentación</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>HTML</h3>
+        <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content" target="_blank" rel="noopener">MDN · HTML</a>
+        <a href="https://web.dev/learn/html/" target="_blank" rel="noopener">web.dev · HTML</a>
+        <a href="https://html5up.net/" target="_blank" rel="noopener">HTML5 UP · Plantillas HTML</a>
+      </div>
+      <div class="resource-card">
+        <h3>CSS</h3>
+        <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Styling_basics" target="_blank" rel="noopener">MDN · CSS</a>
+        <a href="https://web.dev/learn/css/" target="_blank" rel="noopener">web.dev · CSS</a>
+        <a href="https://getbootstrap.com/docs/5.3/" target="_blank" rel="noopener">Bootstrap</a>
+      </div>
+      <div class="resource-card">
+        <h3>JavaScript</h3>
+        <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting" target="_blank" rel="noopener">MDN · JavaScript</a>
+        <a href="https://web.dev/learn/javascript/" target="_blank" rel="noopener">web.dev · JavaScript</a>
+        <a href="https://react.dev/learn" target="_blank" rel="noopener">React</a>
+      </div>
+      <div class="resource-card">
+        <h3>Pruebas y cursos</h3>
+        <a href="https://developer.mozilla.org/es/docs/Learn_web_development" target="_blank" rel="noopener">MDN · Desarrollo web</a>
+        <a href="https://web.dev/learn/" target="_blank" rel="noopener">web.dev · Cursos</a>
+        <a href="https://playcode.io/" target="_blank" rel="noopener">PlayCode</a>
+        <a href="https://codepen.io/pen/" target="_blank" rel="noopener">CodePen</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tutorial-block final-note">
+    <h2>La idea de esta prueba</h2>
+    <p><strong>Simple</strong> y <strong>Completa</strong> muestran la misma idea de web. Lo que cambia es la organización interna del código.</p>
+    <p>La pantalla raíz <code>index.html</code> funciona únicamente como selector de arranque.</p>
+  </div>
+</article>
+
+</main>
+
+<!-- ===== PIE COMPARTIDO; el módulo de cookies enlaza los botones por data-* ===== -->
+<footer class="site-footer">
+  <div class="footer-author">Autor: XNENEX · COMPLETA</div>
+  <nav class="footer-links" aria-label="Información legal">
+    <button type="button" data-hm-open-legal>Información legal, privacidad y cookies</button>
+    <button type="button" data-hm-open-cookies>Configurar cookies</button>
+  </nav>
+  <div class="footer-copy">&copy; XNENEX 2026</div>
+</footer>
+
+<!-- Comportamiento propio de COMPLETA y, después, módulo legal común. -->
+<script src="script.js"></script>
+<script src="../archivos comunes hola_mundo/cookies y privacidad/cookies.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <!-- Metadatos mínimos del lanzador. Esta página no contiene la web didáctica. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Selector de arranque del proyecto didáctico HOLA MUNDO.">
+  <title>Hola Mundo · Arranque</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- El lanzador es deliberadamente autocontenido: sus estilos viven aquí. -->
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: clamp(28px, 6vw, 70px);
+      background: #000;
+      color: #00ff66;
+      font: 17px/1.65 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    }
+    main { width: min(950px, 100%); margin: auto; }
+    h1 { margin-top: 0; font-size: clamp(2rem, 6vw, 4rem); }
+    .intro { color: #9dffb9; }
+    .options { display: grid; gap: 14px; margin: 30px 0; }
+    a {
+      display: block;
+      padding: 15px 18px;
+      border: 1px solid #00ff66;
+      color: #00ff66;
+      text-decoration: none;
+    }
+    a:hover, a:focus-visible { background: #00ff66; color: #001a08; outline: none; }
+    .simple strong { color: #38bdf8; }
+    .completa strong { color: #ff4d4d; }
+    .cursor { animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    small { color: #76a984; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>HOLA MUNDO <span class="cursor">█</span></h1>
+  <p class="intro">Sistema preparado. Elige cómo quieres estudiar la misma web.</p>
+
+  <!--
+    RUTAS DE ARRANQUE ACTUALES:
+    SIMPLE empieza en simple/index.html.
+    COMPLETA empieza en completa/inicio.html.
+    Si cambia la estructura, estas rutas deben revisarse junto con Visor y Editor.
+  -->
+  <div class="options">
+    <a class="simple" href="simple/index.html">
+      [ 1 ] <strong>SIMPLE</strong> → HTML + CSS + JavaScript dentro de un único archivo.
+    </a>
+    <a class="completa" href="completa/inicio.html">
+      [ 2 ] <strong>COMPLETA</strong> → páginas HTML independientes + CSS + JavaScript externos.
+    </a>
+    <a href="archivos comunes hola_mundo/utilidades/visor.html?modo=visor">
+      [ 3 ] VISOR DE CÓDIGO → leer los archivos reales del proyecto.
+    </a>
+    <a href="archivos comunes hola_mundo/utilidades/editor_hcj.html">
+      [ 4 ] EDITOR DE CÓDIGO → probar HTML, CSS y JavaScript sin modificar el proyecto.
+    </a>
+  </div>
+
+  <p>&gt; <span class="cursor">_</span></p>
+  <small>El archivo raíz solo actúa como selector de arranque.</small>
+</main>
+</body>
+</html>

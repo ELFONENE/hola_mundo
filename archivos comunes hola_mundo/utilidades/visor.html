@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hola Mundo :: Visor de código</title>
+  <link rel="icon" href="../../favicon.ico">
+  <style>
+    :root{--g:#00ff66;--g2:#8affb1;--bg:#000;--panel:#071009;--line:#153c21;--muted:#72a881}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--g);font:16px/1.55 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+    header{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.96);border-bottom:1px solid var(--line);padding:18px clamp(16px,4vw,48px)}
+    .bar{max-width:1500px;margin:auto}.title{font-size:clamp(18px,3vw,28px);font-weight:700}.cursor{animation:b 1s steps(1) infinite}@keyframes b{50%{opacity:0}}
+    nav,.files{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}nav .tools{display:flex;gap:10px;margin-left:auto}
+    button,a.btn{font:inherit;color:var(--g);background:#000;border:1px solid var(--g);padding:9px 13px;text-decoration:none;cursor:pointer}button:hover,a.btn:hover,button.active{background:var(--g);color:#000}
+    main{max-width:1500px;margin:auto;padding:26px clamp(12px,3vw,40px) 80px}.status{color:var(--g2);margin:0 0 14px}.path{color:var(--muted);margin:12px 0}.codebox{border:1px solid var(--line);background:var(--panel);overflow-x:auto}
+    .code{margin:0;padding:18px 0;counter-reset:line;white-space:pre;min-width:max-content}.line{display:block;padding:0 22px 0 0}.line:before{counter-increment:line;content:counter(line,decimal-leading-zero);display:inline-block;width:5.5em;padding-right:1.3em;text-align:right;color:#3f8155;user-select:none}.error{color:#ff6b6b}.hint{color:var(--muted);font-size:14px;margin-top:18px}
+    @media(max-width:760px){nav .tools{width:100%;margin-left:0;justify-content:flex-end}}
+  </style>
+</head>
+<body>
+<!-- Cabecera de la utilidad. Sus enlaces vuelven a la estructura real del proyecto. -->
+<header>
+  <div class="bar">
+    <div class="title">HOLA MUNDO :: VISOR DE CÓDIGO <span class="cursor">█</span></div>
+    <nav>
+      <a class="btn" href="../../index.html">← ARRANQUE</a>
+      <a class="btn" href="../../simple/index.html">WEB SIMPLE</a>
+      <a class="btn" href="../../completa/inicio.html">WEB COMPLETA</a>
+      <button id="simple">[ SIMPLE ]</button>
+      <button id="completa">[ COMPLETA ]</button>
+      <span class="tools">
+        <button id="visor">[ VISOR ]</button>
+        <a class="btn" href="editor_hcj.html">[ EDITOR ]</a>
+      </span>
+    </nav>
+    <div class="files" id="files"></div>
+  </div>
+</header>
+
+<main>
+  <p class="status" id="status">&gt; sistema preparado.</p>
+  <p class="path" id="path"></p>
+  <div class="codebox"><pre class="code" id="code"><span class="line">Seleccione un archivo.</span></pre></div>
+  <p class="hint">El visor usa <code>fetch()</code> para leer los archivos reales. Ejecuta HOLA MUNDO mediante HTTP/HTTPS, no con <code>file://</code>.</p>
+</main>
+
+<script>
+/* Cada modo define qué archivos reales puede abrir el visor. */
+/*
+  MAPA DE ARCHIVOS REALES.
+  Si se renombra o mueve una página, esta tabla debe actualizarse.
+*/
+const sets = {
+  simple: [
+    ["index.html · HTML + CSS + JS", "../../simple/index.html"]
+  ],
+  completa: [
+    ["INICIO", "../../completa/inicio.html"],
+    ["BLOG", "../../completa/blog.html"],
+    ["CONTACTO", "../../completa/contacto.html"],
+    ["CSS", "../../completa/style.css"],
+    ["JAVASCRIPT", "../../completa/script.js"]
+  ],
+  visor: [
+    ["visor.html", "visor.html"]
+  ]
+};
+
+const $ = selector => document.querySelector(selector);
+const code = $("#code");
+const files = $("#files");
+const status = $("#status");
+const path = $("#path");
+
+function escapeHtml(text) {
+  return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// fetch() exige servir el proyecto por HTTP/HTTPS; file:// no puede leer estos archivos.
+async function openFile(file, label) {
+  status.textContent = `> cargando ${file} ...`;
+  path.textContent = `archivo: ${file}`;
+
+  [...files.children].forEach(button => {
+    button.classList.toggle("active", button.dataset.file === file);
+  });
+
+  try {
+    const response = await fetch(file, { cache:"no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const text = await response.text();
+
+    code.innerHTML = text
+      .split("\n")
+      .map(line => `<span class="line">${escapeHtml(line) || " "}</span>`)
+      .join("\n");
+
+    status.textContent = `> ${label} cargado correctamente. líneas: ${text.split("\n").length}`;
+  } catch (error) {
+    code.innerHTML =
+      `<span class="line error">No se pudo leer ${file}.</span>` +
+      `<span class="line error">Ejecuta HOLA MUNDO mediante http://localhost.</span>`;
+    status.textContent = `> ERROR: ${error.message}`;
+  }
+}
+
+function mode(name) {
+  $("#simple").classList.toggle("active", name === "simple");
+  $("#completa").classList.toggle("active", name === "completa");
+  $("#visor").classList.toggle("active", name === "visor");
+
+  files.innerHTML = "";
+  sets[name].forEach(([label,file]) => {
+    const button = document.createElement("button");
+    button.textContent = label;
+    button.dataset.file = file;
+    button.addEventListener("click", () => openFile(file,label));
+    files.appendChild(button);
+  });
+
+  openFile(sets[name][0][1], sets[name][0][0]);
+  history.replaceState(null,"",`?modo=${name}`);
+}
+
+$("#simple").onclick = () => mode("simple");
+$("#completa").onclick = () => mode("completa");
+$("#visor").onclick = () => mode("visor");
+
+const requested = new URLSearchParams(location.search).get("modo");
+mode(requested === "visor" ? "visor" : requested === "completa" ? "completa" : "simple");
+</script>
+</body>
+</html>
