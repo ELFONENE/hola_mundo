@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- =========================================================
+     AUDITORÍA / DOCUMENTACIÓN FINAL HOLA MUNDO
+     Archivo: 404.html
+     Función: página de error personalizada para rutas inexistentes en GitHub Pages.
+     Se mantiene autocontenida para funcionar aunque falle cualquier otro recurso CSS/JS.
+     ========================================================= -->
+<html lang="es">
+<head>
+  <!-- METADATOS: la página de error no debe indexarse como contenido normal. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="description" content="Página no encontrada en el proyecto didáctico HOLA MUNDO.">
+  <title>404 · HOLA MUNDO</title>
+  <link rel="icon" href="/hola_mundo/favicon.ico" type="image/x-icon">
+
+  <!-- ESTILOS AUTOCONTENIDOS: no dependen de archivos externos. -->
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    body{min-height:100vh;margin:0;display:grid;place-items:center;padding:28px;background:#000;color:#00ff66;font:17px/1.65 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+    main{width:min(760px,100%);padding:clamp(24px,5vw,48px);border:1px solid #174a28;background:#050805}
+    .code{margin:0;color:#9dffb9;font-size:clamp(4rem,18vw,9rem);line-height:1}
+    h1{margin:.35rem 0 1rem;font-size:clamp(1.6rem,5vw,2.6rem)}
+    p{color:#9dffb9}
+    a{display:inline-block;margin-top:14px;padding:11px 15px;border:1px solid #00ff66;color:#00ff66;text-decoration:none}
+    a:hover,a:focus-visible{background:#00ff66;color:#001a08;outline:none}
+    .cursor{animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+  </style>
+</head>
+<body>
+<!-- CONTENIDO PRINCIPAL: mensaje de error y retorno seguro al inicio público. -->
+<main>
+  <p class="code">404</p>
+  <h1>Ruta no encontrada <span class="cursor">█</span></h1>
+  <p>La dirección solicitada no existe dentro de HOLA MUNDO.</p>
+  <a href="/hola_mundo/">← Volver a HOLA MUNDO</a>
+</main>
+</body>
+</html>
